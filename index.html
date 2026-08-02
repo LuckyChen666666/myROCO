@@ -145,6 +145,79 @@
             padding: 0 4px;
         }
 
+        /* ---------- 截图网格：一行两张 ---------- */
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        /* ---------- 截图卡片 ---------- */
+        .screenshot-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(6px);
+            border-radius: 22px;
+            padding: 28px 24px 24px;
+            box-shadow: 0 4px 16px rgba(108, 140, 255, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(108, 140, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.04);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .screenshot-card .img-wrap {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 18px;
+            overflow: hidden;
+            background: #f5f9ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 1px solid rgba(108, 140, 255, 0.06);
+        }
+
+        .screenshot-card .img-wrap a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        .screenshot-card .img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.4s ease;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .screenshot-card:hover .img-wrap img {
+            transform: scale(1.02);
+        }
+
+        .screenshot-card .screenshot-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2d3748;
+            margin-top: 14px;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
         /* ---------- 空状态占位 ---------- */
         .img-wrap .placeholder {
             color: #d5e0f0;
@@ -174,6 +247,9 @@
                 grid-template-columns: repeat(3, 1fr);
                 gap: 24px;
             }
+            .screenshot-grid {
+                gap: 24px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -186,6 +262,17 @@
             }
             .pet-card .pet-name {
                 font-size: 1rem;
+            }
+
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .screenshot-card {
+                padding: 20px 16px 18px;
+            }
+            .screenshot-card .screenshot-name {
+                font-size: 0.95rem;
             }
         }
 
@@ -210,6 +297,17 @@
             .section-header h2 {
                 font-size: 1.3rem;
             }
+
+            .screenshot-card {
+                padding: 16px 12px 14px;
+                border-radius: 16px;
+            }
+            .screenshot-card .img-wrap img {
+                padding: 6px;
+            }
+            .screenshot-card .screenshot-name {
+                font-size: 0.85rem;
+            }
         }
 
         @media (max-width: 360px) {
@@ -220,7 +318,8 @@
         }
 
         /* ---------- 图片加载渐入 ---------- */
-        .pet-card .img-wrap img {
+        .pet-card .img-wrap img,
+        .screenshot-card .img-wrap img {
             opacity: 0;
             animation: fadeIn 0.6s ease forwards;
         }
@@ -252,7 +351,7 @@
 
     <script>
         // ============================================================
-        //  数据
+        //  宠物数据（来自 myROCO源markdown.md）
         // ============================================================
         const petData = [{
             series: '迪莫系列',
@@ -291,6 +390,36 @@
         }];
 
         // ============================================================
+        //  截图数据（来自 myROCO源markdown.md 更新后的描述）
+        // ============================================================
+        const screenshotData = [
+            { name: '第一次参与系别赛的赛季结束(24届)', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202511062210759.png' },
+            { name: '第一次领取系别赛结算奖励(24届)', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202511070835470.png' },
+            { name: '系别赛徽章首次达到288', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202511222012318.png' },
+            { name: '兑换青琼灵犬', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202511222113403.png' },
+            { name: '第25届系别赛结算奖励领取', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202602061313312.png' },
+            { name: '2025.12.15第一次购买紫三蛋', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202512151202589.png' },
+            { name: '2025.12.15第一次孵化紫三蛋', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202512151204095.png' },
+            { name: '2026.01.08完成魔法成长日志主线任务', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202601081239661.png' },
+            { name: '2026.5.31放礼花', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202605312259538.png' },
+            { name: '2026.6.1领取上月放礼花奖励-金灿宝宝', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202606010805978.png' },
+            { name: '2026.06.01守护兽满级', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202606011424801.png' },
+            { name: '16周年庆礼包(1)-道具', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607100843841.png' },
+            { name: '16周年庆礼包(2)-厄影潘多拉', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607100843254.png' },
+            { name: '16周年-黑守概率提升(1)', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607120858297.png' },
+            { name: '16周年-黑守概率提升(2)', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607120859816.png' },
+            { name: '16周年-紫三蛋孵化', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607100846717.png' },
+            { name: '16周年-迪莫系列之蛋(1)', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607100854809.png' },
+            { name: '16周年-迪莫系列之蛋(2)', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607100855704.png' },
+            { name: '16周年-迪莫系列之蛋(3)', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607240933006.png' },
+            { name: '16周年-商城购买持剑小王子', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607101949192.png' },
+            { name: '16周年-公测宠物蛋领取完毕', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607120904456.png' },
+            { name: '16周年-公测宠物蛋孵化(1)', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607100845110.png' },
+            { name: '16周年-公测宠物蛋孵化(2)', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607110910617.png' },
+            { name: '16周年-公测宠物蛋孵化(3)', img: 'https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607120831607.png' }
+        ];
+
+        // ============================================================
         //  渲染
         // ============================================================
         const app = document.getElementById('app');
@@ -298,6 +427,7 @@
         function render() {
             let html = '';
 
+            // 1. 宠物部分
             petData.forEach((section) => {
                 html += `
                     <section class="section">
@@ -326,6 +456,34 @@
                     </section>
                 `;
             });
+
+            // 2. 截图部分
+            html += `
+                <section class="section">
+                    <div class="section-header">
+                        <h2>其他纪念截图</h2>
+                    </div>
+                    <div class="screenshot-grid">
+            `;
+
+            screenshotData.forEach((item) => {
+                const imgSrc = item.img;
+                html += `
+                    <div class="screenshot-card">
+                        <div class="img-wrap">
+                            <a href="${imgSrc}" target="_blank" rel="noopener noreferrer">
+                                <img src="${imgSrc}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\\'placeholder\\'>✨ ${item.name}</span>'" />
+                            </a>
+                        </div>
+                        <div class="screenshot-name">${item.name}</div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </section>
+            `;
 
             app.innerHTML = html;
         }
