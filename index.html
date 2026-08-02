@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学笔记</title>
+
+    <!-- 图标 -->
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="icon.svg" type="image/svg+xml">
+
+    <!-- KaTeX 数学公式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+    <style>
+        :root {
+            --primary: #3D8BFD;
+            /* 明亮的蓝色 */
+            --secondary: #6BA3FF;
+            /* 浅蓝色 */
+            --accent: #FF9F43;
+            /* 橙色 */
+            --light: #F8FAFC;
+            /* 浅灰色背景 */
+            --lighter: #FFFFFF;
+            /* 纯白 */
+            --border: #E2E8F0;
+            /* 浅灰色边框 */
+            --shadow: rgba(61, 139, 253, 0.1);
+            --shadow-hover: rgba(61, 139, 253, 0.2);
+            --text: #2D3748;
+            /* 深蓝色文字 */
+            --text-light: #718096;
+            /* 浅灰色文字 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: var(--lighter);
+            border-radius: 16px;
+            box-shadow: 0 6px 20px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            /* 禁止选中 */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: var(--lighter);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .section-header {
+            padding: 20px 25px;
+            background: var(--primary);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+            /* 禁止选中 */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .file-list {
+            list-style: none;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-item:hover {
+            background-color: rgba(61, 139, 253, 0.05);
+        }
+
+        .book-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            flex-shrink: 0;
+        }
+
+        .book-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover .book-icon svg {
+            fill: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .file-content {
+            flex: 1;
+        }
+
+        .file-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .file-action {
+            margin-left: 20px;
+            flex-shrink: 0;
+        }
+
+        .view-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            min-width: 100px;
+            user-select: none;
+        }
+
+        .view-btn:hover {
+            background: #2D7BFD;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(61, 139, 253, 0.2);
+        }
+
+        .view-btn:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            background: var(--lighter);
+            border-radius: 16px;
+            box-shadow: 0 6px 20px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .footer p {
+            margin-bottom: 8px;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--secondary);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .header {
+                padding: 25px 20px;
+                margin-bottom: 30px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 18px 20px;
+            }
+
+            .book-icon {
+                margin-bottom: 15px;
+                margin-right: 0;
+            }
+
+            .file-action {
+                margin-left: 0;
+                margin-top: 15px;
+                width: 100%;
+            }
+
+            .view-btn {
+                width: 100%;
+            }
+
+            .section-header {
+                padding: 18px 20px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .file-name {
+                font-size: 1.1rem;
+            }
+
+            .header,
+            .section,
+            .footer {
+                border-radius: 12px;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .section:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .section:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .section:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .file-item {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* 为每个文件项设置不同的动画延迟 */
+        .file-item:nth-child(1) {
+            animation-delay: 0.15s;
+        }
+        .file-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .file-item:nth-child(3) {
+            animation-delay: 0.25s;
+        }
+        .file-item:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        .file-item:nth-child(5) {
+            animation-delay: 0.35s;
+        }
+        .file-item:nth-child(6) {
+            animation-delay: 0.4s;
+        }
+        .file-item:nth-child(7) {
+            animation-delay: 0.45s;
+        }
+        .file-item:nth-child(8) {
+            animation-delay: 0.5s;
+        }
+        .file-item:nth-child(9) {
+            animation-delay: 0.55s;
+        }
+        .file-item:nth-child(10) {
+            animation-delay: 0.6s;
+        }
+        .file-item:nth-child(11) {
+            animation-delay: 0.65s;
+        }
+        .file-item:nth-child(12) {
+            animation-delay: 0.7s;
+        }
+        .file-item:nth-child(13) {
+            animation-delay: 0.75s;
+        }
+        .file-item:nth-child(14) {
+            animation-delay: 0.8s;
+        }
+        .file-item:nth-child(15) {
+            animation-delay: 0.85s;
+        }
+        .file-item:nth-child(16) {
+            animation-delay: 0.9s;
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>数学笔记</h1>
+        </header>
+
+        <main>
+            <!-- 第1栏：自学笔记 -->
+            <section class="section">
+                <div class="section-header">自学笔记</div>
+                <ul class="file-list">
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">Linear Algebra Done Right</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/自学笔记/Linear Algebra Done Right (3rd ed.) (Sheldon Axler).pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">数学分析新讲 (上)</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/自学笔记/数学分析新讲-张筑生-上.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">数学分析新讲 (下)</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/自学笔记/数学分析新讲-张筑生-下.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">Algebra: Chapter 0</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/自学笔记/Algebra-Chapter_0.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">An Introduction to Manifolds </div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/自学笔记/An Introduction to Manifolds (2nd ed.) (Loring W. Tu).pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 第2栏：演示文稿 -->
+            <section class="section">
+                <div class="section-header">演示文稿</div>
+                <ul class="file-list">
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">群的Cayley图</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/演示文稿/群的Cayley图.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">一些有趣的曲线与曲面</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/演示文稿/一些有趣的曲线与曲面.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 第3栏：专业课资料 -->
+            <section class="section">
+                <div class="section-header">专业课资料</div>
+                <ul class="file-list">
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">几何学选讲</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/几何学选讲.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">变分学</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/变分学.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">概率论与数理统计</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/概率论与数理统计.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">几何学选讲_题目</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/几何学选讲_题目.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">模论与环论基础</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/模论与环论基础.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">数理逻辑</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/数理逻辑.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">数学分析专题选讲</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/数学分析专题选讲.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">微分几何</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/微分几何.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">应数班复变第三章爆强复习资料</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/应数班复变第三章爆强复习资料.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">运筹学</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/运筹学.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">泛函分析</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/泛函分析.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">复变函数</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/复变函数.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">点集拓扑</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/点集拓扑.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">Munkres课后习题</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/Munkres课后习题.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+                    <li class="file-item">
+                        <div class="book-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                            </svg>
+                        </div>
+                        <div class="file-content">
+                            <div class="file-name">代数拓扑-考试复习</div>
+                        </div>
+                        <div class="file-action">
+                            <a href="https://luckychen666666.github.io/MyMathNotes/课程笔记/代数拓扑-考试复习.pdf" class="view-btn" target="_blank">
+                                查看
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>数学笔记 | Lucky Chen</p>
+            <!-- <p>仅供学习交流使用</p> -->
+        </footer>
+    </div>
+
+    <script>
+        // 自动为所有外部链接添加 target="_blank" 和 rel 属性
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                if (link.href && !link.href.startsWith(window.location.origin)) {
+                    link.setAttribute('target', '_blank');
+                    link.setAttribute('rel', 'noopener noreferrer');
+                }
+            });
+
+            // 移除了文件项的点击事件，现在只能点击"查看"按钮跳转
+
+            // 添加键盘导航支持给查看按钮
+            const viewBtns = document.querySelectorAll('.view-btn');
+            viewBtns.forEach((btn, index) => {
+                btn.setAttribute('tabindex', index + 1);
+            });
+
+            // 键盘导航
+            document.addEventListener('keydown', function(e) {
+                const focusedBtn = document.activeElement.closest('.view-btn');
+                if (!focusedBtn) return;
+
+                const btns = Array.from(document.querySelectorAll('.view-btn'));
+                const currentIndex = btns.indexOf(focusedBtn);
+
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+
+                    let nextIndex;
+                    if (e.key === 'ArrowDown') {
+                        nextIndex = currentIndex < btns.length - 1 ? currentIndex + 1 : 0;
+                    } else {
+                        nextIndex = currentIndex > 0 ? currentIndex - 1 : btns.length - 1;
+                    }
+
+                    if (btns[nextIndex]) {
+                        btns[nextIndex].focus();
+                        btns[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }
+
+                // 回车键打开文件
+                if (e.key === 'Enter' && focusedBtn) {
+                    focusedBtn.click();
+                }
+            });
+
+            // 添加加载动画
+            window.addEventListener('load', function() {
+                document.body.style.opacity = 0;
+                document.body.style.transition = 'opacity 0.5s ease';
+
+                setTimeout(() => {
+                    document.body.style.opacity = 1;
+                }, 100);
+            });
+
+            // 为查看按钮添加点击动画
+            viewBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // 添加点击反馈
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
