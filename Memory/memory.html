@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>回忆区 · 我的洛克王国纪念</title>
-    <link rel="icon" type="image/png" href="迪莫.png">
+    <link rel="icon" type="image/png" href="../迪莫.png">
     <style>
         /* ---------- 全局重置 ---------- */
         * {
@@ -471,6 +471,7 @@
 
         <!-- 页面内容 -->
         <div id="pageContent" class="page-content">
+            <!-- 返回首页链接改为 ../index.html -->
             <a href="../index.html" class="back-home-btn">
                 <span class="arrow">←</span> 返回首页
             </a>
@@ -482,7 +483,8 @@
             </div>
             <div class="bottom-actions">
                 <button class="action-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑ 返回页面顶部</button>
-                <a href="index.html" class="action-btn">← 返回首页</a>
+                <!-- 底部返回首页链接也改为 ../index.html -->
+                <a href="../index.html" class="action-btn">← 返回首页</a>
             </div>
         </div>
 
@@ -494,7 +496,7 @@
 
     <script>
         // ============================================================
-        //  加载 memory-data.json
+        //  加载 memory-data.json（同目录）
         // ============================================================
         fetch('memory-data.json')
             .then(res => {
@@ -535,7 +537,7 @@
                                 <div class="bottom-actions no-select">
                                     <button class="action-btn" onclick="scrollToSectionTop(this)">↑ 返回系列顶部</button>
                                     <button class="action-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑ 返回页面顶部</button>
-                                    <a href="index.html" class="action-btn">← 返回首页</a>
+                                    <a href="../index.html" class="action-btn">← 返回首页</a>
                                 </div>
                             </div>
                         </section>
@@ -569,7 +571,7 @@
                             <div class="bottom-actions no-select">
                                 <button class="action-btn" onclick="scrollToSectionTop(this)">↑ 返回系列顶部</button>
                                 <button class="action-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑ 返回页面顶部</button>
-                                <a href="index.html" class="action-btn">← 返回首页</a>
+                                <a href="../index.html" class="action-btn">← 返回首页</a>
                             </div>
                         </div>
                     </section>
