@@ -63,6 +63,15 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* 按钮文字不可选择 */
+        .back-home-btn, .action-btn {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
         .back-home-btn {
             display: inline-block;
             margin-bottom: 32px;
@@ -336,11 +345,11 @@
     <div class="container">
         <header class="header">
             <h1>回忆区</h1>
-            <p>✦ 童年老宠 · 珍贵纪念截图 ✦</p>
+            <!-- 副标题修改为 "回忆老宠与纪念截图" -->
+            <p>✦ 回忆老宠与纪念截图 ✦</p>
         </header>
 
         <div id="pageContent" class="page-content">
-            <!-- 返回首页：指向父目录 -->
             <a href="../index.html" class="back-home-btn">
                 <span class="arrow">←</span> 返回首页
             </a>
@@ -350,7 +359,6 @@
                     <div>数据加载中...</div>
                 </div>
             </div>
-            <!-- 最底部的返回首页 -->
             <div class="bottom-actions">
                 <button class="action-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑ 返回页面顶部</button>
                 <a href="../index.html" class="action-btn">← 返回首页</a>
@@ -370,7 +378,6 @@
             })
             .then(data => {
                 let html = '';
-                // 宠物部分
                 data.petData.forEach((section) => {
                     const toggleIcon = '<span class="toggle-icon">▶</span>';
                     const foldedClass = 'folded';
@@ -397,7 +404,6 @@
                     });
                     html += `
                                 </div>
-                                <!-- 折叠区域内部的返回首页 -->
                                 <div class="bottom-actions no-select">
                                     <button class="action-btn" onclick="scrollToSectionTop(this)">↑ 返回系列顶部</button>
                                     <button class="action-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑ 返回页面顶部</button>
@@ -408,7 +414,6 @@
                     `;
                 });
 
-                // 截图部分
                 html += `
                     <section class="section foldable-section">
                         <div class="section-header">
@@ -432,7 +437,6 @@
                 });
                 html += `
                             </div>
-                            <!-- 截图折叠区域内部的返回首页 -->
                             <div class="bottom-actions no-select">
                                 <button class="action-btn" onclick="scrollToSectionTop(this)">↑ 返回系列顶部</button>
                                 <button class="action-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑ 返回页面顶部</button>
@@ -444,7 +448,6 @@
 
                 document.getElementById('memoryGrid').innerHTML = html;
 
-                // 绑定折叠事件
                 document.querySelectorAll('.foldable-section .section-header').forEach(header => {
                     header.addEventListener('click', function(e) {
                         const section = this.closest('.section');

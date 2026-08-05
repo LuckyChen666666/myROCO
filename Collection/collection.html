@@ -63,6 +63,15 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* 按钮文字不可选择 */
+        .back-home-btn, .action-btn {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
         .back-home-btn {
             display: inline-block;
             margin-bottom: 32px;
@@ -251,11 +260,11 @@
     <div class="container">
         <header class="header">
             <h1>收集区</h1>
-            <p>✦ 迪莫 · 阿布 · 精灵王 · 奉神灵兽 ✦</p>
+            <!-- 副标题修改为 "特别的宠物" -->
+            <p>✦ 特别的宠物 ✦</p>
         </header>
 
         <div id="pageContent" class="page-content">
-            <!-- 返回首页：指向父目录 -->
             <a href="../index.html" class="back-home-btn">
                 <span class="arrow">←</span> 返回首页
             </a>
@@ -267,7 +276,6 @@
             </div>
             <div class="bottom-actions">
                 <button class="action-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑ 返回页面顶部</button>
-                <!-- 底部返回首页：指向父目录 -->
                 <a href="../index.html" class="action-btn">← 返回首页</a>
             </div>
         </div>
