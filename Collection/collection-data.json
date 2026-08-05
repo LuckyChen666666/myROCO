@@ -1,0 +1,48 @@
+{
+  "petData": [
+    {
+      "series": "迪莫系列",
+      "pets": [
+        { "name": "迪莫", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202512191446932.png" },
+        { "name": "圣光迪莫", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202512191443209.png" },
+        { "name": "皇家圣光迪莫", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202512191443878.png" },
+        { "name": "皇家圣草迪莫", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202512191444098.png" },
+        { "name": "皇家圣水迪莫", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202512191444144.png" },
+        { "name": "皇家圣火迪莫", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607241509436.png" },
+        { "name": "暗影迪莫", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607241511024.png" }
+      ]
+    },
+    {
+      "series": "阿布系列",
+      "pets": [
+        { "name": "阿布", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202608041519572.png" },
+        { "name": "超能阿布", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202608041519926.png" },
+        { "name": "圣龙阿布", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202608041520960.png" },
+        { "name": "惊雷阿布", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607241506446.png" }
+      ]
+    },
+    {
+      "series": "精灵王",
+      "pets": [
+        { "name": "冰龙王", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202512191434500.png" },
+        { "name": "圣藤草王", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202608041524989.png" },
+        { "name": "凌羽圣翼王", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202603061527002.png" },
+        { "name": "煌明火王", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202603061528826.png" },
+        { "name": "傲凌冰龙王", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607201833772.png" },
+        { "name": "天极圣雷王", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202608032220877.png" },
+        { "name": "混沌石王", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202608032221145.png" },
+        { "name": "乾坤武圣", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202608032225770.png" }
+      ]
+    },
+    {
+      "series": "奉神灵兽",
+      "pets": [
+        { "name": "云举瑶鹿", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202603070907862.png" },
+        { "name": "战钺蟠龙", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607201837318.png" },
+        { "name": "琴澜鸣鹤", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202607201838895.png" },
+        { "name": "赑瑞玄龟", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202608032214872.png" },
+        { "name": "乾镜双凤", "img": "https://cdn.jsdelivr.net/gh/LuckyChen666666/MyImage@main/202608032217589.png" }
+      ]
+    }
+  ]
+}
